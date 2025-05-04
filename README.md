@@ -108,4 +108,4 @@
 
 - Relasi antara penyewaan dan pembayaran:
     Setiap penyewaan dapat memiliki satu pembayaran terkait, sehingga relasi ini One-to-One (1 penyewaan memiliki 1 pembayaran).
-    Relasi: penyewaan.id → pembayaran.rental_id
+    Relasi: penyewaan.id → pembayaran.penyewaan_id
