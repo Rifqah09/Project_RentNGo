@@ -1,7 +1,7 @@
 <p align="center">
   <b>RentNGo</b><br>
   <i>(Sistem Penyewaan Alat Camping)</i><br><br>
-  <img src="https://images.app.goo.gl/WQu6YttFGuuZ1TAK8" width="150"><br><br>
+  <img src="images/LogoUnsulbar.png" width="150"><br><br>
   <b>Rifqah.S</b><br>
   <b>D0223314</b><br><br>
   Framework Web Based<br>
