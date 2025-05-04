@@ -1,18 +1,12 @@
-# 🏕️ RentNGo - Sistem Penyewaan Alat Camping
-
-## 👨‍💻 Nama  
-**Rifqah. s**
-
-## 🆔 NIM  
-**D0223314**
-
-## 📚 Mata Kuliah  
-**Frame Work Based**
-
-## 📅 Tahun  
-**2025**
-
----
+<p align="center">
+  <b>RentNGo</b><br>
+  <i>(Sistem Penyewaan Alat Camping)</i><br><br>
+  <img src="https://www.unsulbarnews.com/cropped-logo-usb-2013-jpg" alt="Logo Universitas Sulawesi Barat" width="150"><br><br>
+  <b>Rifqah.S</b><br>
+  <b>D0223314</b><br><br>
+  Framework Web Based<br>
+  2025
+</p>
 
 ## 🎯 Role dan Fitur-fiturnya
 
