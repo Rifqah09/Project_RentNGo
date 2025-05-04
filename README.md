@@ -1,7 +1,7 @@
 <p align="center">
   <b>RentNGo</b><br>
   <i>(Sistem Penyewaan Alat Camping)</i><br><br>
-  <img src="https://www.unsulbarnews.com/cropped-logo-usb-2013-jpg" alt="Logo Universitas Sulawesi Barat" width="150"><br><br>
+  <img src="https://www.unsulbarnews.com/cropped-logo-usb-2013-jpg" width="150"><br><br>
   <b>Rifqah.S</b><br>
   <b>D0223314</b><br><br>
   Framework Web Based<br>
