@@ -98,14 +98,14 @@
 
 ## 🔄 Jenis Relasi dan Tabel yang Berelasi
 
-- Relasi antara users dan rentals:
+- Relasi antara users dan penyewaan:
     Setiap pengguna (user) bisa melakukan banyak penyewaan alat camping, sehingga relasi ini One-to-Many (1 user dapat memiliki banyak rental).
-    Relasi: users.id → rentals.user_id
+    Relasi: users.id → penyewaan.user_id
 
 - Relasi antara camping_gear dan rentals:
-    Setiap alat camping dapat disewa banyak kali, sehingga relasi ini juga One-to-Many (1 camping_gear dapat memiliki banyak rental).
+    Setiap alat camping dapat disewa banyak kali, sehingga relasi ini juga One-to-Many (1 alat_camping dapat memiliki banyak rental).
     Relasi: camping_gear.id → rentals.gear_id
 
-- Relasi antara rentals dan payments:
-    Setiap penyewaan (rental) dapat memiliki satu pembayaran terkait, sehingga relasi ini One-to-One (1 rental memiliki 1 pembayaran).
-    Relasi: rentals.id → payments.rental_id
+- Relasi antara penyewaan dan pembayaran:
+    Setiap penyewaan dapat memiliki satu pembayaran terkait, sehingga relasi ini One-to-One (1 penyewaan memiliki 1 pembayaran).
+    Relasi: penyewaan.id → pembayaran.rental_id
