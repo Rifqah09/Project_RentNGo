@@ -42,7 +42,7 @@
 | name | VARCHAR | Nama lengkap pengguna |
 | email | VARCHAR | Alamat email pengguna |
 | password | VARCHAR | Password terenkripsi |
-| role | ENUM | 'admin' atau 'user' |
+| role | ENUM | 'admin', 'Staff','user' |
 | created_at | TIMESTAMP | Timestamp dibuat |
 | updated_at | TIMESTAMP | Timestamp diperbarui |
 
