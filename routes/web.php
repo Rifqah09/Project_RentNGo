@@ -1,10 +1,12 @@
 <?php
 
+
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PenyewaanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,6 +32,6 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:staff'])->get('/staff/dashboard', [StaffController::class, 'index'])->name('staff.dashboard');
     Route::middleware(['role:user'])->get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 });
-
+Route::resource('penyewaan', PenyewaanController::class);
 
 require __DIR__.'/auth.php';
