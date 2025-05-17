@@ -8,98 +8,119 @@
   2025
 </p>
 
+# 🏕️ RentNGo – Sistem Penyewaan Alat Camping
+
+RentNGo adalah sistem berbasis Laravel yang digunakan untuk menyewakan peralatan camping secara online, dengan peran yang berbeda seperti **Admin**, **Staff**, dan **User (Penyewa)**. Sistem ini mendukung manajemen alat, penyewaan, pembayaran, laporan, serta pengelolaan pengguna dengan role-based access control.
+
+---
+
 ## 🎯 Role dan Fitur-fiturnya
 
 ### 🔐 Admin
-- Manajemen Pengguna: Admin dapat melihat, menambah, mengedit, dan menghapus pengguna (admin, staff, dan user).
-- Manajemen Alat Camping: Admin dapat menambah, mengedit, dan menghapus alat camping yang tersedia untuk disewa.
-- Manajemen Penyewaan: Admin dapat melihat dan memverifikasi status penyewaan alat camping oleh pengguna.
-- Manajemen Pembayaran: Admin dapat mengelola pembayaran yang terkait dengan penyewaan, seperti mengonfirmasi pembayaran yang sudah diterima.
-- Laporan dan Statistik: Admin dapat melihat laporan penyewaan dan pendapatan dari sistem sewa.
-- Pengaturan Umum: Admin dapat mengubah pengaturan sistem terkait dengan alat camping dan kebijakan sewa.
 
-### Staff
-- Manajemen Alat Camping: Staff dapat melihat dan mengelola alat camping yang tersedia (menambah stok, mengedit deskripsi dan harga).
-- Manajemen Penyewaan: Staff dapat melihat penyewaan yang ada dan mengubah status penyewaan, misalnya menandai alat camping yang telah disewa atau dikembalikan.
-- Penyewaan Baru: Staff dapat membuat atau mengedit penyewaan baru yang dilakukan oleh pengguna.
-- Penyelesaian Pembayaran: Staff dapat melihat dan memproses pembayaran yang terkait dengan penyewaan.
-- Laporan Penyewaan: Staff dapat mengakses laporan penyewaan untuk memantau alat camping yang sedang disewa.
+* Manajemen Pengguna: Melihat, menambah, mengedit, dan menghapus pengguna (admin, staff, user).
+* Manajemen Alat Camping: Menambah, mengedit, dan menghapus alat camping.
+* Manajemen Penyewaan: Melihat dan memverifikasi status penyewaan.
+* Manajemen Pembayaran: Mengonfirmasi pembayaran yang masuk.
+* Laporan dan Statistik: Melihat laporan penyewaan dan pendapatan.
+* Pengaturan Umum: Mengatur kebijakan sewa dan sistem.
+
+### 🛠️ Staff
+
+* Manajemen Alat Camping: Menambah stok, mengedit deskripsi dan harga.
+* Manajemen Penyewaan: Menandai alat telah disewa/dikembalikan.
+* Input Penyewaan Baru: Membuat penyewaan atas nama user.
+* Proses Pembayaran: Memverifikasi dan memproses pembayaran.
+* Laporan Penyewaan: Melihat alat yang sedang disewa.
 
 ### 👤 User (Penyewa)
-- Menampilkan Alat Camping: User dapat melihat daftar alat camping yang tersedia beserta deskripsi dan harga sewa.
-- Melakukan Penyewaan: User dapat menyewa alat camping dengan memilih alat, mengisi form penyewaan, dan menentukan tanggal sewa serta pengembalian.
-- Melakukan Pembayaran: Setelah melakukan penyewaan, user dapat melakukan pembayaran melalui metode yang disediakan.
-- Melihat Riwayat Penyewaan: User dapat melihat riwayat penyewaan alat camping yang pernah dilakukan, termasuk status penyewaan dan pembayaran.
-- Mengelola Profil: User dapat memperbarui informasi profil mereka, seperti nama, email, dan password.
----
 
-## 🗃️ Tabel-tabel Database
-
-### 🧾 Tabel 1: `users`
-| Nama Field | Tipe Data | Keterangan |
-|------------|-----------|------------|
-| id | BIGINT | Primary key, auto-increment |
-| name | VARCHAR | Nama lengkap pengguna |
-| email | VARCHAR | Alamat email pengguna |
-| password | VARCHAR | Password terenkripsi |
-| role | ENUM | 'admin', 'Staff','user' |
-| created_at | TIMESTAMP | Timestamp dibuat |
-| updated_at | TIMESTAMP | Timestamp diperbarui |
+* Lihat Alat Camping: Melihat daftar alat camping beserta deskripsi dan harga.
+* Sewa Alat: Memilih alat, menentukan tanggal sewa dan pengembalian.
+* Pembayaran: Melakukan pembayaran setelah menyewa.
+* Riwayat Penyewaan: Melihat riwayat sewa dan status pembayaran.
+* Kelola Profil: Update informasi pribadi dan kata sandi.
 
 ---
 
-### 🧾 Tabel 2: `alat_camping`
-| Nama Field | Tipe Data | Keterangan |
-|------------|-----------|------------|
-| id | BIGINT | Primary key, auto-increment |
-| nama_alat | VARCHAR | Nama alat camping |
-| deskripsi | TEXT | Deskripsi alat |
-| harga_sewa | DECIMAL | Harga sewa per hari |
-| stok | INTEGER | Jumlah stok tersedia |
-| created_at | TIMESTAMP | Timestamp dibuat |
-| updated_at | TIMESTAMP | Timestamp diperbarui |
+## 🗃️ Struktur Database
+
+### 1. users
+
+| Field       | Tipe                         | Keterangan           |
+| ----------- | ---------------------------- | -------------------- |
+| id          | BIGINT                       | Primary Key          |
+| name        | VARCHAR                      | Nama pengguna        |
+| email       | VARCHAR                      | Email                |
+| password    | VARCHAR                      | Terenkripsi          |
+| role        | ENUM('admin','staff','user') | Role pengguna        |
+| created\_at | TIMESTAMP                    | Timestamp dibuat     |
+| updated\_at | TIMESTAMP                    | Timestamp diperbarui |
 
 ---
 
+### 2. alat_camping
 
-### 🧾 Tabel 3: `penyewaan`
-| Nama Field | Tipe Data | Keterangan |
-|------------|-----------|------------|
-| id | BIGINT | Primary key, auto-increment |
-| user_id | foreignId  | Foreign key ke tabel users |
-| alat_camping_id | foreignId | Foreign key ke tabel users |
-| tanggal_sewa | DATE | Tanggal mulai sewa |
-| tanggal_kembali | DATE | Tanggal kembali alat |
-| status | ENUM | pending/confirmed/returned/canceled |
-| created_at | TIMESTAMP | Timestamp dibuat |
-| updated_at | TIMESTAMP | Timestamp diperbarui |
-
----
-
-### 🧾 Tabel 4: `pembayaran`
-| Nama Field | Tipe Data | Keterangan |
-|------------|-----------|------------|
-| id | BIGINT | Primary key, auto-increment |
-| penyewaan_id | foreignId | Foreign key ke tabel transaksi |
-| subtotal | DECIMAL | Harga total untuk alat ini |
-| payment_date | Timestamp | tanggal pembayaran |
-| metode pembayaran| enum | credit/transfer/cash |
-| status | DECIMAL | pending/completed/failed |
-| created_at | TIMESTAMP | Timestamp dibuat |
-| updated_at | TIMESTAMP | Timestamp diperbarui |
+| Field       | Tipe      | Keterangan           |
+| ----------- | --------- | -------------------- |
+| id          | BIGINT    | Primary Key          |
+| nama\_alat  | VARCHAR   | Nama alat            |
+| deskripsi   | TEXT      | Deskripsi alat       |
+| harga\_sewa | DECIMAL   | Harga sewa per hari  |
+| stok        | INTEGER   | Stok tersedia        |
+| created\_at | TIMESTAMP | Timestamp dibuat     |
+| updated\_at | TIMESTAMP | Timestamp diperbarui |
 
 ---
 
-## 🔄 Jenis Relasi dan Tabel yang Berelasi
+### 3. penyewaan
 
-- Relasi antara users dan penyewaan:
-    Setiap pengguna (user) bisa melakukan banyak penyewaan alat camping, sehingga relasi ini One-to-Many (1 user dapat memiliki banyak rental).
-    Relasi: users.id → penyewaan.user_id
+| Field            | Tipe                                              | Keterangan             |
+| ---------------- | ------------------------------------------------- | ---------------------- |
+| id               | BIGINT                                            | Primary Key            |
+| user\_id         | foreignId                                         | Foreign key ke users |
+| tanggal\_sewa    | DATE                                              | Tanggal mulai sewa     |
+| tanggal\_kembali | DATE                                              | Tanggal kembali alat   |
+| status           | ENUM('pending','confirmed','returned','canceled') | Status penyewaan       |
+| created\_at      | TIMESTAMP                                         | Timestamp dibuat       |
+| updated\_at      | TIMESTAMP                                         | Timestamp diperbarui   |
 
-- Relasi antara camping_gear dan rentals:
-    Setiap alat camping dapat disewa banyak kali, sehingga relasi ini juga One-to-Many (1 alat_camping dapat memiliki banyak rental).
-    Relasi: camping_gear.id → rentals.gear_id
+---
 
-- Relasi antara penyewaan dan pembayaran:
-    Setiap penyewaan dapat memiliki satu pembayaran terkait, sehingga relasi ini One-to-One (1 penyewaan memiliki 1 pembayaran).
-    Relasi: penyewaan.id → pembayaran.penyewaan_id
+### 4. alat_penyewaan (Pivot Table Many-to-Many)
+
+| Field             | Tipe      | Keterangan                    |
+| ----------------- | --------- | ----------------------------- |
+| id                | BIGINT    | Primary Key                   |
+| penyewaan\_id     | foreignId | Foreign key ke penyewaan    |
+| alat\_camping\_id | foreignId | Foreign key ke alat_camping |
+| jumlah            | INTEGER   | Jumlah alat disewa            |
+| subtotal          | DECIMAL   | harga\_sewa × jumlah × hari   |
+| created\_at       | TIMESTAMP | Timestamp dibuat              |
+| updated\_at       | TIMESTAMP | Timestamp diperbarui          |
+
+---
+
+### 5. pembayaran
+
+| Field              | Tipe                                 | Keterangan                 |
+| ------------------ | ------------------------------------ | -------------------------- |
+| id                 | BIGINT                               | Primary Key                |
+| penyewaan\_id      | foreignId                            | Foreign key ke penyewaan |
+| subtotal           | DECIMAL                              | Jumlah total yang dibayar  |
+| payment\_date      | TIMESTAMP                            | Tanggal pembayaran         |
+| metode\_pembayaran | ENUM('credit','transfer','cash')     | Metode pembayaran          |
+| status             | ENUM('pending','completed','failed') | Status pembayaran          |
+| created\_at        | TIMESTAMP                            | Timestamp dibuat           |
+| updated\_at        | TIMESTAMP                            | Timestamp diperbarui       |
+
+---
+
+## 🔄 Relasi Antar Tabel
+
+* **users ⇨ penyewaan**: One-to-Many
+* **penyewaan ⇄ alat\_camping**: Many-to-Many melalui tabel alat_penyewaan
+* **penyewaan ⇨ pembayaran**: One-to-One
+ 
+
+---
