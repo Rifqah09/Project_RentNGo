@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Penyewaan extends Model
 {
@@ -10,25 +10,26 @@ class Penyewaan extends Model
 
     protected $fillable = [
         'user_id',
-        'alat_camping_id',
         'tanggal_sewa',
         'tanggal_kembali',
-        'total_price',
         'status',
     ];
+
     public function user()
-{
-    return $this->belongsTo(User::class);
-}
+    {
+        return $this->belongsTo(User::class);
+    }
 
-public function alat()
-{
-    return $this->belongsTo(AlatCamping::class, 'alat_camping_id');
-}
+    // Relasi many-to-many dengan alat_camping lewat pivot
+    public function alatCamping()
+    {
+        return $this->belongsToMany(AlatCamping::class, 'alat_penyewaan')
+                    ->withPivot('jumlah', 'subtotal')
+                    ->withTimestamps();
+    }
 
-public function pembayaran()
-{
-    return $this->hasOne(Pembayaran::class);
-}
-
+    public function pembayaran()
+    {
+        return $this->hasOne(Pembayaran::class);
+    }
 }
