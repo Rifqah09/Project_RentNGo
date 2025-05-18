@@ -7,6 +7,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PenyewaanController;
+use App\Http\Controllers\PembayaranController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,5 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:user'])->get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 });
 Route::resource('penyewaan', PenyewaanController::class);
+Route::resource('pembayaran', PembayaranController::class);
+
 
 require __DIR__.'/auth.php';

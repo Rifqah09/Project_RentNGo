@@ -24,7 +24,10 @@ class PenyewaanController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    DB::beginTransaction(); // Mulai transaksi
+
+    try {
         // Validasi input
         $request->validate([
             'alat_camping_id' => 'required|exists:alat_campings,id',
@@ -32,8 +35,16 @@ class PenyewaanController extends Controller
             'tanggal_kembali' => 'required|date|after_or_equal:tanggal_sewa',
         ]);
 
-        // Buat penyewaan baru
-        Penyewaan::create([
+        // Ambil alat camping berdasarkan id
+        $alat = AlatCamping::findOrFail($request->alat_camping_id);
+
+        // Cek apakah stok alat cukup
+        if ($alat->stok <= 0) {
+            return back()->withErrors(['stok' => 'Stok alat tidak cukup.']);
+        }
+
+        // Buat penyewaan
+        $penyewaan = Penyewaan::create([
             'user_id' => auth()->id(),
             'alat_camping_id' => $request->alat_camping_id,
             'tanggal_sewa' => $request->tanggal_sewa,
@@ -41,48 +52,17 @@ class PenyewaanController extends Controller
             'status' => 'pending',
         ]);
 
+        // Kurangi stok alat
+        $alat->decrement('stok');
+
+        // Jika semua berhasil, commit transaksi
+        DB::commit();
+
         return redirect()->route('penyewaan.index')->with('success', 'Penyewaan berhasil dibuat.');
+    } catch (\Exception $e) {
+        // Jika ada error, rollback transaksi
+        DB::rollBack();
+        return back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
     }
-
-    public function show($id)
-    {
-        // Menampilkan detail penyewaan berdasarkan ID
-        $penyewaan = Penyewaan::findOrFail($id);
-        return view('penyewaan.show', compact('penyewaan'));
-    }
-
-    public function edit($id)
-    {
-        // Menampilkan form untuk mengedit penyewaan
-        $penyewaan = Penyewaan::findOrFail($id);
-        $alatCampings = AlatCamping::all(); // Ambil semua alat camping
-        return view('penyewaan.edit', compact('penyewaan', 'alatCampings'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        // Validasi input
-        $request->validate([
-            'alat_camping_id' => 'required|exists:alat_campings,id',
-            'tanggal_sewa' => 'required|date',
-            'tanggal_kembali' => 'required|date|after_or_equal:tanggal_sewa',
-        ]);
-
-        // Update penyewaan
-        $penyewaan = Penyewaan::findOrFail($id);
-        $penyewaan->update([
-            'alat_camping_id' => $request->alat_camping_id,
-            'tanggal_sewa' => $request->tanggal_sewa,
-            'tanggal_kembali' => $request->tanggal_kembali,
-        ]);
-
-        return redirect()->route('penyewaan.index')->with('success', 'Penyewaan berhasil diperbarui.');
-    }
-
-    public function destroy($id)
-    {
-        // Menghapus penyewaan
-        Penyewaan::findOrFail($id)->delete();
-        return redirect()->route('penyewaan.index')->with('success', 'Penyewaan berhasil dihapus.');
-    }
+}
 }
