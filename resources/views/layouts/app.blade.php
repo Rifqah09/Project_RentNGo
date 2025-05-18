@@ -36,6 +36,6 @@
     </footer>
 
     <!-- JS dari template -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('Admin/js/main.js') }}"></script>
 </body>
 </html>
