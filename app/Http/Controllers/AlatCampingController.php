@@ -9,6 +9,9 @@ class AlatCampingController extends Controller
 {
     public function index()
     {
+    if (auth()->user()->role !== 'admin' && auth()->user()->role !== 'staff') {
+        abort(403, 'Akses ditolak.');
+    }
         $alatCampings = AlatCamping::all();
         return view('alat_camping.index', compact('alatCampings'));
     }
