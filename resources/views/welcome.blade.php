@@ -2,32 +2,34 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>RentNGo</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>RentNGo</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
-  <!-- Favicons -->
-  <link href="{{ asset('Dewi')}}/assets/img/favicon.png" rel="icon">
-  <link href="{{ asset('Dewi')}}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="{{ asset('Dewi') }}/assets/img/favicon.png" rel="icon">
+    <link href="{{ asset('Dewi') }}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="{{ asset('Dewi')}}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="{{ asset('Dewi')}}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="{{ asset('Dewi')}}/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="{{ asset('Dewi')}}/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="{{ asset('Dewi')}}/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('Dewi') }}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('Dewi') }}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="{{ asset('Dewi') }}/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="{{ asset('Dewi') }}/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="{{ asset('Dewi') }}/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
-  <link href="{{ asset('Dewi')}}/assets/css/main.css" rel="stylesheet">
+    <!-- Main CSS File -->
+    <link href="{{ asset('Dewi') }}/assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
+    <!-- =======================================================
   * Template Name: Dewi
   * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/
   * Updated: Aug 07 2024 with Bootstrap v5.3.3
@@ -38,95 +40,106 @@
 
 <body class="index-page">
 
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <h1 class="sitename">RentNGo</h1>
-      </a>
+            <a href="index.html" class="logo d-flex align-items-center me-auto">
+                <h1 class="sitename">RentNGo</h1>
+            </a>
 
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          {{-- <li><a href="#portfolio">Portfolio</a></li> --}}
-          {{-- <li><a href="#team">Team</a></li> --}}
-          <li><a href="#contact">Contact</a></li>
-          
-          @if (Route::has('login'))
-      
-          @auth
-          <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-        
-          @else
-              <li><a href="{{ route('login') }}">Login</a></li>
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li class="dropdown">
+                        <a href="#services">Layanan Saya</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('lihatdansewa') }}">Lihat dan sewa alat camping</a></li>
+                            <li><a href="{{ route('penyewaan.riwayat') }}">Lihat riwayat penyewaan</a></li>
+                            <li><a href="{{ route('penyewaan.batal', ['id' => 1]) }}">Batalkan pesanan</a></li>
+                            <!-- id diganti dinamis -->
+                            <li><a href="{{ route('pembayaran.status') }}">Upload & lihat status pembayaran</a></li>
+                        </ul>
+                    </li>
+                    {{-- <li><a href="#portfolio">Portfolio</a></li> --}}
+                    {{-- <li><a href="#team">Team</a></li> --}}
+                    <li><a href="#contact">Contact</a></li>
 
-              @if (Route::has('register'))
-                  <li><a href="{{ route('register') }}">Register</a></li>
-                  
-              @endif
-          @endauth
-      
-      @endif
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+                    @if (Route::has('login'))
 
-      <a class="cta-btn" href="index.html#about">Get Started</a>
+                        @auth
+                            <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                        @else
+                            <li><a href="{{ route('login') }}">Login</a></li>
 
-    </div>
-  </header>
+                            @if (Route::has('register'))
+                                <li><a href="{{ route('register') }}">Register</a></li>
+                            @endif
+                        @endauth
 
-  <!-- ALL ORIGINAL SECTIONS REMAIN UNCHANGED -->
-  <main class="main">
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
-      <img src="{{ asset('Dewi')}}/assets/img/hero-bg.jpg" alt="" data-aos="fade-in">
-      <div class="container d-flex flex-column align-items-center">
-        <h2 data-aos="fade-up" data-aos-delay="100">RentNGo</h2>
-        <p data-aos="fade-up" data-aos-delay="200">Tempat sewa alat camping terpercaya</p>
-        <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
-          <a href="#about" class="btn-get-started">Get Started</a>
-          <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                    @endif
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+
+            <a class="cta-btn" href="index.html#about">Get Started</a>
+
         </div>
-      </div>
-    </section><!-- /Hero Section -->
+    </header>
 
-    <!-- About Section -->
-    <section id="about" class="about section">
-      <!-- ... original about section content ... -->
-    </section>
+    <!-- ALL ORIGINAL SECTIONS REMAIN UNCHANGED -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section id="hero" class="hero section dark-background">
+            <img src="{{ asset('Dewi') }}/assets/img/hero-bg.jpg" alt="" data-aos="fade-in">
+            <div class="container d-flex flex-column align-items-center">
+                <h2 data-aos="fade-up" data-aos-delay="100">RentNGo</h2>
+                <p data-aos="fade-up" data-aos-delay="200">Tempat sewa alat camping terpercaya</p>
+                <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
+                    <a href="#about" class="btn-get-started">Get Started</a>
+                    <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                        class="glightbox btn-watch-video d-flex align-items-center"><i
+                            class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                </div>
+            </div>
+        </section><!-- /Hero Section -->
 
-    <!-- All other sections remain exactly the same -->
-    <!-- Stats, Services, Clients, Features, Testimonials, Portfolio, Team, Contact -->
-    <!-- ... -->
+        <!-- About Section -->
+        <section id="about" class="about section">
+            <!-- ... original about section content ... -->
+        </section>
 
-  </main>
+        <!-- All other sections remain exactly the same -->
+        <!-- Stats, Services, Clients, Features, Testimonials, Portfolio, Team, Contact -->
+        <!-- ... -->
 
-  <!-- FOOTER REMAINS COMPLETELY UNCHANGED -->
-  <footer id="footer" class="footer dark-background">
-    <!-- ... original footer content ... -->
-  </footer>
+    </main>
 
-  <!-- SCRIPTS REMAIN UNCHANGED -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  <div id="preloader"></div>
-  
-  <!-- Vendor JS Files -->
-  <script src="{{ asset('Dewi')}}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="{{ asset('Dewi')}}/assets/vendor/php-email-form/validate.js"></script>
-  <script src="{{ asset('Dewi')}}/assets/vendor/aos/aos.js"></script>
-  <script src="{{ asset('Dewi')}}/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="{{ asset('Dewi')}}/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="{{ asset('Dewi')}}/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="{{ asset('Dewi')}}/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="{{ asset('Dewi')}}/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <!-- FOOTER REMAINS COMPLETELY UNCHANGED -->
+    <footer id="footer" class="footer dark-background">
+        <!-- ... original footer content ... -->
+    </footer>
 
-  <!-- Main JS File -->
-  <script src="{{ asset('Dewi')}}/assets/js/main.js"></script>
+    <!-- SCRIPTS REMAIN UNCHANGED -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ asset('Dewi') }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('Dewi') }}/assets/vendor/php-email-form/validate.js"></script>
+    <script src="{{ asset('Dewi') }}/assets/vendor/aos/aos.js"></script>
+    <script src="{{ asset('Dewi') }}/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="{{ asset('Dewi') }}/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="{{ asset('Dewi') }}/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="{{ asset('Dewi') }}/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="{{ asset('Dewi') }}/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="{{ asset('Dewi') }}/assets/js/main.js"></script>
 
 </body>
+
 </html>
 {{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -404,4 +417,4 @@
             <div class="h-14.5 hidden lg:block"></div>
         @endif
     </body>
-</html> --}} 
+</html> --}}

@@ -18,28 +18,25 @@ RentNGo adalah sistem berbasis Laravel yang digunakan untuk menyewakan peralatan
 
 ### 🔐 Admin
 
-* Manajemen Pengguna: Melihat, menambah, mengedit, dan menghapus pengguna (admin, staff, user).
-* Manajemen Alat Camping: Menambah, mengedit, dan menghapus alat camping.
-* Manajemen Penyewaan: Melihat dan memverifikasi status penyewaan.
-* Manajemen Pembayaran: Mengonfirmasi pembayaran yang masuk.
-* Laporan dan Statistik: Melihat laporan penyewaan dan pendapatan.
-* Pengaturan Umum: Mengatur kebijakan sewa dan sistem.
+* Kelola pengguna (lihat, tambah, edit, hapus)
+* Kelola alat camping (lihat, tambah, edit, hapus)
+* Kelola penyewaan (konfirmasi, tandai selesai)
+* Kelola pembayaran (konfirmasi status)
 
 ### 🛠️ Staff
 
-* Manajemen Alat Camping: Menambah stok, mengedit deskripsi dan harga.
-* Manajemen Penyewaan: Menandai alat telah disewa/dikembalikan.
-* Input Penyewaan Baru: Membuat penyewaan atas nama user.
-* Proses Pembayaran: Memverifikasi dan memproses pembayaran.
-* Laporan Penyewaan: Melihat alat yang sedang disewa.
+* Lihat & edit alat camping
+* Konfirmasi penyewaan
+* Tandai penyewaan selesai
+* Konfirmasi pembayaran
+
 
 ### 👤 User (Penyewa)
 
-* Lihat Alat Camping: Melihat daftar alat camping beserta deskripsi dan harga.
-* Sewa Alat: Memilih alat, menentukan tanggal sewa dan pengembalian.
-* Pembayaran: Melakukan pembayaran setelah menyewa.
-* Riwayat Penyewaan: Melihat riwayat sewa dan status pembayaran.
-* Kelola Profil: Update informasi pribadi dan kata sandi.
+* Lihat dan sewa alat camping
+* Lihat riwayat penyewaan sendiri
+* Batalkan pesanan (jika masih pending)
+* Upload & lihat status pembayaran
 
 ---
 

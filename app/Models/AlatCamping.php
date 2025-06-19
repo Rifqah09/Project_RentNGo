@@ -9,7 +9,7 @@ class AlatCamping extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama_alat', 'deskripsi', 'harga_sewa', 'stok'];
+    protected $fillable = ['nama_alat', 'deskripsi', 'harga_sewa',];
 
     public function penyewaans()
     {

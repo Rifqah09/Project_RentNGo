@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('harga_sewa', 10, 2);
             $table->text('deskripsi')->nullable();
             $table->timestamps();
-            $table->integer('stok');
+            // $table->integer('stok');
 });
 
     }
