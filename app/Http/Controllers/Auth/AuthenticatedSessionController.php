@@ -45,6 +45,6 @@ if (Auth::user()->role == 'admin' || Auth::user()->role == 'staff') {
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/hai');
     }
 }

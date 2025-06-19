@@ -35,7 +35,6 @@ RentNGo adalah sistem berbasis Laravel yang digunakan untuk menyewakan peralatan
 
 * Lihat dan sewa alat camping
 * Lihat riwayat penyewaan sendiri
-* Batalkan pesanan (jika masih pending)
 * Upload & lihat status pembayaran
 
 ---

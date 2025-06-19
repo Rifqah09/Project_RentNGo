@@ -40,28 +40,51 @@ class PenyewaanController extends Controller
 
         return back()->with('success', 'Penyewaan ditandai selesai.');
     }
-    public function sewa(){
+    public function sewa(Request $request)
+    {
         DB::beginTransaction();
-       try {
-        $sewa = new Penyewaan; 
-        $sewa -> user_id = Auth::user()->id;
-        $sewa -> tanggal_sewa = now();
-        $sewa -> tanggal_kembali = now()->subDay(2);
-        $sewa -> save();
-// dd($sewa);
-        $data  = new Riwayat();
-        $data -> user_id = Auth::user()->id;
-        $data -> penyewaan_id = $sewa->id;
-        $data -> save();
-        
-        DB::commit();
-        return redirect() -> route('lihatdansewa')->with('sukses, berhasil disewa');
-       } catch (\Throwable $th) {
-        DB::rollBack();
-         return redirect() -> route('lihatdansewa')->with('gagal', 'gagal' . $th->getMessage());
-       }
-       
-        
+
+        try {
+            // Validasi minimal 1 alat dipilih
+            $request->validate([
+                'alat_id' => 'required|array',
+                'jumlah' => 'required|array',
+                'alat_id.*' => 'exists:alat_campings,id',
+                'jumlah.*' => 'required|integer|min:1',
+            ]);
+
+            // Buat penyewaan baru
+            $sewa = new Penyewaan;
+            $sewa->user_id = Auth::id();
+            $sewa->tanggal_sewa = now();
+            $sewa->tanggal_kembali = now()->addDays(2); // tgl kembali HARUS di masa depan
+            $sewa->status = 'pending';
+            $sewa->save();
+
+            // Simpan ke tabel pivot (alat_penyewaan)
+            foreach ($request->alat_id as $index => $alat_id) {
+                $jumlah = $request->jumlah[$index];
+                $harga = 10000; // kamu bisa ubah dari DB kalau harga dinamis
+                $subtotal = $harga * $jumlah;
+
+                $sewa->alatCampings()->attach($alat_id, [
+                    'jumlah' => $jumlah,
+                    'subtotal' => $subtotal,
+                ]);
+            }
+
+            // Simpan ke tabel riwayat
+            Riwayat::create([
+                'user_id' => Auth::id(),
+                'penyewaan_id' => $sewa->id,
+            ]);
+
+            DB::commit();
+            return redirect()->route('pembayaran.upload.form', $sewa->id)
+                ->with('success', 'Berhasil disewa, lanjutkan ke pembayaran.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('lihatdansewa')->with('gagal', 'Gagal: ' . $th->getMessage());
+        }
     }
-    
 }

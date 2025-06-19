@@ -12,7 +12,7 @@ class PenggunaController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('pengguna.index', compact('users'));
+        return view('Admin.pengguna', compact('users'));
     }
 
     // Form tambah pengguna
@@ -75,10 +75,14 @@ class PenggunaController extends Controller
 
     // Hapus user
     public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
+{
+    $user = User::findOrFail($id);
 
-        return redirect()->route('pengguna.index')->with('success', 'Pengguna berhasil dihapus.');
+    if ($user->role !== 'user') {
+        return redirect()->route('pengguna.index')->with('error', 'Hanya pengguna biasa (user) yang dapat dihapus.');
     }
+
+    $user->delete();
+    return redirect()->route('pengguna.index')->with('success', 'Pengguna berhasil dihapus.');
+}
 }

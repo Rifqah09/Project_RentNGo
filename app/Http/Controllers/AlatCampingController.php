@@ -20,49 +20,59 @@ class AlatCampingController extends Controller
         return view('tambahalat');
     }
 
-    // Menyimpan data alat camping baru ke database
+    // Menyimpan data alat camping baru ke database (versi terbaru dengan gambar_url)
     public function simpanalat(Request $request)
-{
-    $request->validate([
-        'nama_alat' => 'required|string|max:255',
-        'harga_sewa' => 'required|numeric',
-        'deskripsi' => 'nullable|string',
-        // 'stok' => 'required|integer|min:0',
-    ]);
+    {
+        $request->validate([
+            'nama_alat' => 'required|string|max:255',
+            'harga_sewa' => 'required|numeric|min:0',
+            'deskripsi' => 'required|string',
+            'gambar_url' => 'required|url',
+        ]);
 
-    AlatCamping::create($request->all());
+        AlatCamping::create([
+            'nama_alat' => $request->nama_alat,
+            'harga_sewa' => $request->harga_sewa,
+            'deskripsi' => $request->deskripsi,
+            'gambar_url' => $request->gambar_url,
+        ]);
 
-    return redirect()->route('lihatalat')->with('success', 'Data alat camping berhasil ditambahkan.');
-}
+        return redirect()->route('lihatalat')->with('sukses', 'Alat camping berhasil ditambahkan!');
+    }
 
     // Menampilkan form edit berdasarkan ID
     public function editalat(Request $request, $id)
     {
-        $alat = AlatCamping::find($id);
+        $alat = AlatCamping::findOrFail($id);
         return view('editalat', compact('alat'));
     }
 
     // Memperbarui data alat camping berdasarkan ID
     public function updatealat(Request $request, $id)
-{
-    $alat = AlatCamping::findOrFail($id);
+    {
+        $alat = AlatCamping::findOrFail($id);
 
-    $request->validate([
-        'nama_alat' => 'required|string|max:255',
-        'harga_sewa' => 'required|numeric',
-        'deskripsi' => 'nullable|string',
-        // 'stok' => 'required|integer|min:0',
-    ]);
+        $request->validate([
+            'nama_alat' => 'required|string|max:255',
+            'harga_sewa' => 'required|numeric',
+            'deskripsi' => 'nullable|string',
+            'gambar_url' => 'required|url',
+        ]);
 
-    $alat->update($request->only(['nama_alat', 'harga_sewa', 'deskripsi', 'stok']));
+        $alat->update([
+            'nama_alat' => $request->nama_alat,
+            'harga_sewa' => $request->harga_sewa,
+            'deskripsi' => $request->deskripsi,
+            'gambar_url' => $request->gambar_url,
+        ]);
 
-    return redirect()->route('lihatalat')->with('success', 'Data alat camping berhasil diperbarui.');
-}
+        return redirect()->route('lihatalat')->with('success', 'Data alat camping berhasil diperbarui.');
+    }
 
     // Menghapus data alat camping berdasarkan ID
     public function deletealat($id)
     {
-        $alat = AlatCamping::find($id);
+        $alat = AlatCamping::findOrFail($id);
         $alat->delete();
 
         return redirect()->route('lihatalat')->with('success', 'Data alat camping berhasil dihapus.');

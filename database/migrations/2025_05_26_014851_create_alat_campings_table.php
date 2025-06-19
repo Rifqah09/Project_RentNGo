@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('alat_campings', function (Blueprint $table) {
             $table->string('nama_alat');
             $table->id();
+            $table->string('gambar_url')->nullable();
             $table->decimal('harga_sewa', 10, 2);
             $table->text('deskripsi')->nullable();
             $table->timestamps();

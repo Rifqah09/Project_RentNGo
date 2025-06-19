@@ -2,12 +2,16 @@
 
 use App\Http\Controllers\AlatCampingController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RiwayatController;
 use App\Models\AlatCamping;
 use App\Models\Pembayaran;
 use Illuminate\Support\Facades\Route;
-
+Route::get('/', function () {
+    return redirect('/hai');
+});
 Route::get('/hai', function () {
     return view('welcome');
 });
@@ -17,13 +21,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth', 'role:admin')->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
 
-    Route::get('/testing', function () {
-        return 'asdfgh';
-    });
+    // Route::get('/testing', function () {
+    //     return 'asdfgh';
+    // });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -34,6 +38,12 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::put('/updatealat/{id}', [AlatCampingController::class, 'updatealat'])->name('updatealat');
     Route::post('/deletealat/{id}', [AlatCampingController::class, 'deletealat'])->name('deletealat');
 
+    Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index')->middleware(['auth', 'role:admin']);
+    Route::get('/pengguna/create', [PenggunaController::class, 'create'])->name('pengguna.create');
+    Route::post('/pengguna', [PenggunaController::class, 'store'])->name('pengguna.store');
+    Route::get('/pengguna/{id}/edit', [PenggunaController::class, 'edit'])->name('pengguna.edit');
+    Route::put('/pengguna/{id}', [PenggunaController::class, 'update'])->name('pengguna.update');
+    Route::delete('/pengguna/{id}', [PenggunaController::class, 'destroy'])->name('pengguna.destroy');
 
     // Kelola Pembayaran (Admin/Staff)
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran.index');
@@ -66,6 +76,9 @@ Route::middleware('auth', 'role:admin,staff')->group(function () {
     Route::post('/penyewaan/{id}/selesai', [PenyewaanController::class, 'selesai'])->name('penyewaan.selesai');
 });
 Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // 👥 Lihat alat & sewa
 
     Route::get('/lihatdantambah', function () {
@@ -74,19 +87,17 @@ Route::middleware(['auth'])->group(function () {
     })->name('lihatdansewa');
     // Buat penyewaan
     Route::post('/penyewaan/{alat_id}/buat', [PenyewaanController::class, 'buat'])->name('penyewaan.buat');
-    Route::post('/sewa-alat/{id}', [PenyewaanController::class, 'sewa'])->name('sewa.alat');
+    Route::post('/sewa-alat', [PenyewaanController::class, 'sewa'])->name('sewa.alat');
     //  Riwayat penyewaan
-    Route::get('/riwayat', [PenyewaanController::class, 'riwayat'])->name('penyewaan.riwayat');
+    Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat')->middleware('auth');
 
     //  Batalkan penyewaan
     Route::post('/penyewaan/{id}/batal', [PenyewaanController::class, 'batal'])->name('penyewaan.batal');
 
-    //  Upload bukti pembayaran
     Route::get('/pembayaran/{penyewaan_id}/upload', [PembayaranController::class, 'uploadForm'])->name('pembayaran.upload.form');
     Route::post('/pembayaran/{penyewaan_id}/upload', [PembayaranController::class, 'upload'])->name('pembayaran.upload');
-
-    // 🔍 Lihat status pembayaran
-    Route::get('/status-pembayaran', [PembayaranController::class, 'status'])->name('pembayaran.status');
+    Route::get('/status', [PembayaranController::class, 'status'])->name('status');
 });
+
 
 require __DIR__ . '/auth.php';
