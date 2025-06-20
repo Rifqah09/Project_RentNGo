@@ -64,9 +64,12 @@ class AlatCampingController extends Controller
             'harga_sewa' => $request->harga_sewa,
             'deskripsi' => $request->deskripsi,
             'gambar_url' => $request->gambar_url,
+
         ]);
+        $alat->save();
 
         return redirect()->route('lihatalat')->with('success', 'Data alat camping berhasil diperbarui.');
+        dd('Redirect berhasil');
     }
 
     // Menghapus data alat camping berdasarkan ID

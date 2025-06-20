@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="container py-4">
+    {{-- Notifikasi sukses --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="mb-0" style="font-family: 'Poppins', sans-serif;">
             🏕️ Daftar Alat Camping
@@ -17,7 +25,7 @@
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th>Gambar</th> {{-- ✅ Kolom gambar --}}
+                            <th>Gambar</th>
                             <th>Nama Alat</th>
                             <th>Harga Sewa</th>
                             <th>Deskripsi</th>
@@ -29,12 +37,12 @@
                             <tr>
                                 <td>
                                     @if($ac->gambar_url)
-    <img src="{{ $ac->gambar_url }}"
-         onerror="this.onerror=null; this.src='{{ asset('images/default.png') }}';"
-         alt="Gambar {{ $ac->nama_alat }}"
-         class="card-img-top w-100"
-         style="max-height:180px; object-fit:cover;">
-@endif
+                                        <img src="{{ $ac->gambar_url }}"
+                                             onerror="this.onerror=null; this.src='{{ asset('images/default.png') }}';"
+                                             alt="Gambar {{ $ac->nama_alat }}"
+                                             class="card-img-top w-100"
+                                             style="max-height:180px; object-fit:cover;">
+                                    @endif
                                 </td>
                                 <td>{{ $ac->nama_alat }}</td>
                                 <td>Rp {{ number_format($ac->harga_sewa, 0, ',', '.') }}</td>
